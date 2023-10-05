@@ -1,0 +1,80 @@
+package com.WebDriverDemo;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Pathology {
+	public static void main(String args[]) {
+		System.setProperty("webdriver.edge.driver", "C:\\for Selenium WebDriver\\Edge Driver 111\\msedgedriver.exe");
+		WebDriver driver= new EdgeDriver();
+		
+		driver.get("https://gor-pathology.web.app/");
+		driver.manage().window().maximize();
+		
+		//Login
+		
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/form/div[1]/div/input")).sendKeys("test@kennect.io");  //Username
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/form/div[2]/div/input")).sendKeys("Qwerty@1234");  //Password
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/form/button[1]/span[1]")).click();  //Login button
+		
+		
+		//Cost Calculator for Blood Test
+		
+		WebElement drplist = driver.findElement(By.id("patient-test"));
+		Select tests = new Select(drplist);
+		tests.selectByVisibleText("Beans");  //Test Name
+		
+		WebElement drplist1 = driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[3]/div/div[2]/div[2]/div/div"));
+		Select discount = new Select(drplist1);
+		discount.selectByVisibleText("5%");  //Discount
+		
+		//Adding Patients and Creating Tests
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/nav/div[2]/div/div/div/div[2]/ul/a[4]/div/div[2]/span")).click();  //Patients Functionality
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[1]/a/button/span[1]")).click(); //Add patient
+		
+		//Page 1
+		driver.findElement(By.name("name")).sendKeys("Saanya");   //Name
+		driver.findElement(By.name("email")).sendKeys("saanya100@rediffmail.com");    //Email
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[2]/div/div[1]/form/div[3]/div/input")).sendKeys("8108544676");  //Phone Number
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[2]/div/div[2]/div[2]/button[2]/span[1]")).click();
+		
+		//Page 2
+		driver.findElement(By.name("height")).sendKeys("172.7");  //Height
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[2]/div/div[1]/form/div[2]/div[2]/div/input")).sendKeys("60");  //Weight
+		
+		WebElement drplist2 = driver.findElement(By.id("patient-test"));
+		Select gender = new Select(drplist2);
+		gender.selectByVisibleText("Female");         //Gender
+		
+		driver.findElement(By.name("age")).sendKeys("23");  //Age
+		
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[2]/div/div[2]/div[2]/button[2]/span[1]")).click();  //Add Tests Button
+		
+		//3rd Page
+		WebElement drplist3 = driver.findElement(By.id("patient-test"));
+		Select test1 = new Select(drplist3);
+		test1.selectByVisibleText("AFP"); //Test
+		
+		WebElement drplist4 = driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[3]/div/div[2]/div[2]/div/div"));
+		Select discount1 = new Select(drplist4);
+		discount1.selectByVisibleText("10%");   //Discount
+		
+		WebElement drplist5 =driver.findElement(By.id("patient-tests-labs"));   //Lab Selection
+		Select lab = new Select(drplist5);
+		lab.selectByVisibleText("Test Lab-AFP");
+		
+		
+		
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[2]/div/div[1]/div[3]/div/div[1]/div/div[3]/div/div/span/button/span[1]/span")).click();   //Add equipment
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[2]/div/div[1]/div[3]/div/div[2]/div/div/div/table/tbody/tr[1]/td[3]/div/div/input")).sendKeys("2");
+		
+		
+		driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div[2]/div[2]/div/div[2]/div[2]/button[2]/span[1]")).click();  //Add Patient Button
+		
+		driver.close();
+	}
+
+}
